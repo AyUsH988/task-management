@@ -8,32 +8,35 @@ import { Component, OnInit } from '@angular/core';
 export class ToDoListComponent implements OnInit {
 
   constructor() { }
-  maxLetterReched  =false
+  maxLetterReched = false
   newtask = '';
-  taskList :any = [];
+  taskList: any = [];
   selectedTaskIndex = -1;
 
   ngOnInit() {
   }
 
   valuechange(event) {
-    if(event.target.value.length >= 28) {
+    if (event.target.value.length >= 28) {
       this.maxLetterReched = true
     } else this.maxLetterReched = false
   }
 
   addTask() {
-    if(this.newtask !='' && !this.maxLetterReched && this.selectedTaskIndex > -1) {
+    // on edit
+    if (this.newtask != '' && !this.maxLetterReched && this.selectedTaskIndex > -1 && this.checkIfNotExist()) {
       this.taskList[this.selectedTaskIndex].name = this.newtask;
       this.selectedTaskIndex = -1;
+      this.newtask = '';
     }
-    else if(this.newtask != '' && !this.maxLetterReched && this.selectedTaskIndex == -1 ) {
+    // on add
+    else if (this.newtask != '' && !this.maxLetterReched && this.selectedTaskIndex == -1 && this.checkIfNotExist()) {
       let item = {};
       item['complete'] = false;
       item['name'] = this.newtask
       this.taskList.push(item);
+      this.newtask = '';
     }
-    this.newtask = '';
   }
 
   taskClicked(i) {
@@ -46,9 +49,18 @@ export class ToDoListComponent implements OnInit {
 
   editTask(i) {
     // edit if the task is not completed
-    if(!this.taskList[i].complete)
-    this.selectedTaskIndex = i;
+    if (!this.taskList[i].complete)
+      this.selectedTaskIndex = i;
     this.newtask = this.taskList[i].name;
   }
 
+  checkIfNotExist() {
+    // check if task already exist
+    for (let i = 0; i < this.taskList.length; i++) {
+      if (this.taskList[i].name == this.newtask) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

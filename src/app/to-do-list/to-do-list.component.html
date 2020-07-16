@@ -30,23 +30,24 @@
       Task can not be mare than 28 chars
     </span>
     <div *ngFor="let task of taskList ;let i = index;">
-      <div class="card py-1 px-2 my-3 position-relative">
+      <div class="card py-1 px-2 my-3 position-relative" [ngClass]="{'border border-primary' : taskList[i].complete}">
         <div class="cursor-pointer" (click)='taskClicked(i)'
-          [ngClass]="{'bg-primary text-white' : taskList[i].complete}" data-toggle="tooltip"
+           data-toggle="tooltip"
           title="Click to complete the task">
           {{task.name}}
         </div>
 
         <div>
           <div class="row">
+
             <span class="input-group-text cursor-pointer position-absolute cancel-icon" data-toggle="tooltip"
-              title="Delete task" (click)="removeTask(i)">
-              <i class="fa fa-times"></i>
+              title="Edit task" (click)="editTask(i)" *ngIf="!taskList[i].complete">
+              <i class="fa fa-pencil"></i>
             </span>
 
             <span class="input-group-text cursor-pointer position-absolute edit-icon" data-toggle="tooltip"
-              title="Edit task" (click)="editTask(i)">
-              <i class="fa fa-pencil"></i>
+              title="Delete task" (click)="removeTask(i)">
+              <i class="fa fa-times"></i>
             </span>
           </div>
 
