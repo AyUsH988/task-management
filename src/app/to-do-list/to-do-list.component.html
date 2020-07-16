@@ -1,0 +1,58 @@
+<div class="container-bg overflow-auto">
+
+  <div class="d-flex justify-content-center my-2">
+    Enter text into the input field to add items to your list(max 28 charcters)
+  </div>
+
+  <div class="d-flex justify-content-center my-2">
+    Click the item to mark it as complete
+  </div>
+
+  <div class="d-flex justify-content-center my-2">
+    Click the 'X' to remove the item from your list.
+  </div>
+
+  <div class="container">
+    <div class="form-group">
+      <div class="input-group">
+
+        <input type="text" class="form-control" [(ngModel)]="newtask" placeholder="New item"
+          (change)="valuechange($event)">
+        <div class="input-group-prepend">
+          <span class="input-group-text cursor-pointer" data-toggle="tooltip"
+          title="Add task"  (click)="addTask()">
+            <i class="fa fa-check"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <span *ngIf="maxLetterReched">
+      Task can not be mare than 28 chars
+    </span>
+    <div *ngFor="let task of taskList ;let i = index;">
+      <div class="card py-1 px-2 my-3 position-relative">
+        <div class="cursor-pointer" (click)='taskClicked(i)'
+          [ngClass]="{'bg-primary text-white' : taskList[i].complete}" data-toggle="tooltip"
+          title="Click to complete the task">
+          {{task.name}}
+        </div>
+
+        <div>
+          <div class="row">
+            <span class="input-group-text cursor-pointer position-absolute cancel-icon" data-toggle="tooltip"
+              title="Delete task" (click)="removeTask(i)">
+              <i class="fa fa-times"></i>
+            </span>
+
+            <span class="input-group-text cursor-pointer position-absolute edit-icon" data-toggle="tooltip"
+              title="Edit task" (click)="editTask(i)">
+              <i class="fa fa-pencil"></i>
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

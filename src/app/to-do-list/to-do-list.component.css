@@ -1,0 +1,18 @@
+.cursor-pointer {
+cursor: pointer;
+}
+
+.cancel-icon {
+    bottom: 1px;
+    right: 40px;
+}
+
+.edit-icon {
+    bottom: 1px;
+    right: 0;
+}
+
+.container-bg {
+    background: #dcdcdc80;
+    min-height: 100vh;
+}
